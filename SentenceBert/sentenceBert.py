@@ -1,27 +1,17 @@
 import openpyxl
 from openpyxl.utils import get_column_letter, column_index_from_string
-import os
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import KMeans
 import numpy as np
-
 # 加载Sentence-Bert模型
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-src_path = '../GraphAndTextFusion/afterFusion.xlsx'
+src_path = '../SentenceBert/afterPreprocessed.xlsx'
 save_path = 'sentenceBertResult.xlsx'
-
 sentences = []
 
-def sentenceInput(inSheet):
-        # 读入句子
-    rowMax = inSheet.max_row #数据源Excel最大行数
-    colMax = inSheet.max_column #数据源Excel最大列数
-    print("There are %i rows."%(rowMax))
-    for row in range(2,rowMax+1):
-        descrpition = inSheet['D%s' % row].value
-        sentences.append(descrpition)
-    
+finalGroupsCount = 25
+
 def main():
     # 资源管理
     inWb = openpyxl.load_workbook(src_path) # 数据源的工作簿
@@ -33,19 +23,34 @@ def main():
     outSheet['A1'] = 'finalGroup'
     outSheet['B1'] = 'id'
     outSheet['C1'] = 'description'
-    outSheet['D1'] = 'result'
-    outSheet['E1'] = 'category'
-    outSheet['F1'] = 'severity'
-    outSheet['G1'] = 'recurrent'
+    outSheet['D1'] = 'pictureCount'
+    outSheet['E1'] = 'fusionResult'
+    outSheet['F1'] = 'category'
+    outSheet['G1'] = 'severity'
+    outSheet['H1'] = 'recurrent'
+    outSheet['I1'] = 'preProcessedResult'
     
-    # 输入处理的句子
-    sentenceInput(inSheet)
+    # 输入处理
+    rowMax = inSheet.max_row #数据源Excel最大行数
+    colMax = inSheet.max_column #数据源Excel最大列数
+    print("There are %i rows."%(rowMax))
+    for row in range(2,rowMax+1):
+        descrpition = inSheet['H%s' % row].value
+        outSheet['B%s' % row] = inSheet['A%s' % row].value
+        outSheet['C%s' % row] = inSheet['B%s' % row].value
+        outSheet['D%s' % row] = inSheet['C%s' % row].value
+        outSheet['E%s' % row] = inSheet['D%s' % row].value
+        outSheet['F%s' % row] = inSheet['E%s' % row].value
+        outSheet['G%s' % row] = inSheet['F%s' % row].value
+        outSheet['H%s' % row] = inSheet['G%s' % row].value
+        outSheet['I%s' % row] = inSheet['H%s' % row].value
+        sentences.append(descrpition)
     
     # 讲句子转化为向量
     sentence_embeddings = model.encode(sentences)
-    
+
     # 使用K-means聚类
-    num_clusters = 100
+    num_clusters = finalGroupsCount
     kmeans = KMeans(n_clusters=num_clusters)
     kmeans.fit(sentence_embeddings)
     clusters = kmeans.labels_
@@ -57,10 +62,9 @@ def main():
     # 讲结果存储到Excel
     for i, sentence in enumerate(sentences):
         outSheet['A%s' %(i+2)] = clusters[i]
-        outSheet['C%s' %(i+2)] = sentence
         
     # 保存
-    outWb.save('sentenceBertResult.xlsx')
+    outWb.save('sentenceBertResult' + str(finalGroupsCount) + '.xlsx')
     
 if __name__ == "__main__":
     main()
