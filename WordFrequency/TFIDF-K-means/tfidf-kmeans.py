@@ -51,7 +51,7 @@ plt.legend()
 plt.grid(True)
 
 # 保存散点图到本地
-plt.savefig('clustering_plot.png')  # 保存图像，你可以根据需要更改文件名和格式
+plt.savefig('clustering_plot.png')
 
 # 显示散点图
 plt.show()
