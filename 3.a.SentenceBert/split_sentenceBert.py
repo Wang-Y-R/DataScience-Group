@@ -3,7 +3,7 @@ import os
 
 # 指定参数
 subfolder_name = 'split_cluster'
-excel_path = 'sentenceBertResult25.xlsx'
+excel_path = 'sentenceBertResult7.xlsx'
 cluster_column = 'finalGroup'
 saved_column = ['fusionResult', 'preProcessedResult']
 
