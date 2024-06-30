@@ -10,7 +10,7 @@ df = pd.read_excel('afterPreprocessed.xlsx')
 
 words = [word for line in df['processed_result'] for word in line.split()]
 word_freq = Counter(words)
-standard = 20
+standard = 10
 high_freq_words = [word for word, freq in word_freq.items() if freq > standard]
 
 # 构建TF-IDF矩阵
@@ -20,7 +20,7 @@ tfidf_matrix = vectorizer.fit_transform(df['processed_result'])
 # 确定最佳聚类数
 silhouette_scores = []
 min_c = 2
-max_c = 12
+max_c = 15
 for n_clusters in range(min_c,max_c):
     kmeans = KMeans(n_clusters=n_clusters, random_state=42).fit(tfidf_matrix)
     score = silhouette_score(tfidf_matrix, kmeans.labels_)
