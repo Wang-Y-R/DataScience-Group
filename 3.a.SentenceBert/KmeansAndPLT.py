@@ -16,7 +16,7 @@ os.environ['OMP_NUM_THREADS'] = '1'
 src_path = '../3.a.SentenceBert/afterPreprocessed.xlsx'
 save_path = 'sentenceBertResult.xlsx'
 
-finalGroupsCount = 12 # 只需要在这里改分组数就好了
+finalGroupsCount = 14 # 只需要在这里改分组数就好了
 
 def main():
     # 资源管理

@@ -3,9 +3,9 @@ import os
 
 # 指定参数
 subfolder_name = 'splitSentenceBertCluster'
-excel_path = 'sentenceBertResult12.xlsx'
+excel_path = 'sentenceBertResult14.xlsx'
 cluster_column = 'finalGroup'
-saved_column = ['fusionResult', 'preProcessedResult']
+saved_column = ['fusionResult', 'preProcessedResult','category']
 
 if not os.path.exists(subfolder_name):
     os.makedirs(subfolder_name)

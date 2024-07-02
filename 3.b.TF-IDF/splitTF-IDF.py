@@ -5,7 +5,7 @@ import os
 subfolder_name = 'splitTF-IDFCluster'
 excel_path = 'TF-IDFClusterData14.xlsx'
 cluster_column = 'cluster'
-saved_column = ['result', 'processed_result']
+saved_column = ['result', 'processed_result','category']
 
 # 如果子文件夹不存在，创建它
 if not os.path.exists(subfolder_name):
