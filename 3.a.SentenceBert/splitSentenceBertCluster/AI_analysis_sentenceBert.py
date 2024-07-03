@@ -20,7 +20,7 @@ for xlsx_file in xlsx_files:
     results = df[analysis_column].tolist()  # 获取result列的所有数据
 
     # 将result列中的所有内容使用换行符拼接为一个问题
-    complete_question = "这是一份软件测试报告，请分析以下内容集中的一个或两个问题：\n" + "\n".join(str(item) for item in results)
+    complete_question = "这是一份软件测试报告，请分析以下内容集中体现的一到两个问题：\n" + "\n".join(str(item) for item in results)
 
     # 准备发送给API的消息
     message = {
