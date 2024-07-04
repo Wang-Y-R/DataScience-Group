@@ -5,7 +5,7 @@ import os
 subfolder_name = 'splitSentenceBertCluster'
 excel_path = 'sentenceBertResult14.xlsx'
 cluster_column = 'finalGroup'
-saved_column = ['fusionResult', 'preProcessedResult','category']
+saved_column = ['id','category','severity','recurrent','fusionResult', 'preProcessedResult']
 
 if not os.path.exists(subfolder_name):
     os.makedirs(subfolder_name)
@@ -23,7 +23,7 @@ for cluster_id in unique_clusters:
     cluster_df = df[df[cluster_column] == cluster_id][saved_column]
 
     # 定义新文件的名称和路径
-    new_file_name = f'{subfolder_name}/{cluster_column}_{cluster_id}.xlsx'
+    new_file_name = f'{subfolder_name}/cluster_{cluster_id}.xlsx'
 
     # 保存到Excel
     cluster_df.to_excel(new_file_name, index=False)

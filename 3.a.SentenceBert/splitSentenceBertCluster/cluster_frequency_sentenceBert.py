@@ -15,7 +15,7 @@ for filename in xlsx_files:
     file_path = os.path.join(directory, filename)
 
     # 读取Excel文件的sheet1
-    df = pd.read_excel(file_path, sheet_name='Sheet1')
+    df = pd.read_excel(file_path)
 
     # 确保processed_result列存在
     if frequency_column in df.columns:
